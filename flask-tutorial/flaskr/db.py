@@ -17,9 +17,12 @@ def get_db():
 
 def close_db(e=None):
     db = g.pop('db', None)
-
     if db is not None:
         db.close()
+    
+    # Could log errors here if needed
+    if e is not None:
+        current_app.logger.error(f"Request failed: {e}")
 
 def init_db():
     db = get_db()
